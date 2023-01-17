@@ -97,16 +97,10 @@ class PlayerController {
         // $editplayer_infmation = $this->Player->updatePlayer($this->request['get']['id']);
         $this->Player->updatePlayer($this->request['post']);
         $id = $this->request['post']['id'];
-        var_dump($id);
-        var_dump($this->request['post']);
         $editplayer_infmation = $this->Player->findById($id);
-        echo "1111111111111111";
-        var_dump($editplayer_infmation );
         $params = [
             'editplayer' => $editplayer_infmation
         ];
-        echo "qqqqqqqq";
-        var_dump($params['editplayer']['weight']);
         return $params;
     }
 
@@ -117,7 +111,6 @@ class PlayerController {
             'PlayersTmpDetele' => $AllDataDelete ,
             'PlayersTmpUpdate' => $AllDataUpdate  
         ];
-        var_dump($params['PlayersTmpUpdate']);
         return $params;
     }
 

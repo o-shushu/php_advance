@@ -103,8 +103,6 @@ class Player extends Db {
     $sth->bindValue(':height',       $UpdatedPlayerData['height'],      PDO::PARAM_INT);
     $sth->bindValue(':weight',       $UpdatedPlayerData['weight'],      PDO::PARAM_INT);
     $sth->bindValue(':country_name', $UpdatedPlayerData['country_name'],PDO::PARAM_STR);
-    echo "mmmmmmmyyyyyyyyy</br>";
-    var_dump($UpdatedPlayerData['country_name']);
     $sth->execute();
         // $sth = $this->dbh->prepare($sql);
         // $sth->bindValue(':uniform_num', $UpdatePlayerData['uniform_num'], PDO::PARAM_INT);

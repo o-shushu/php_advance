@@ -1,13 +1,13 @@
 <?php
 require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
+require_once(ROOT_PATH .'mvc_php\Controllers\UsersController .php');
 
 $player = new PlayerController();
-var_dump($params['editplayer']);
-echo "%%%%%%%%%%%%%%%%%%%%%%%</br>";
-$player->keepedit();
-var_dump($params['editplayer']);
+// $User = new UsersController();
+// $params = $User->LoginUp();
 $params = $player->index();
 $player->PlayersTmp();
+
 
 ?>
 <!DOCTYPE html>
@@ -21,6 +21,7 @@ $player->PlayersTmp();
 </head>
 <body>
     <h2>選手一覧</h2>
+    <h3><a href="logout.php">ログアウト</a></h3>
     <table>
         <tr>
             <th>No</th>
