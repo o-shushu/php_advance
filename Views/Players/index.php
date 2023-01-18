@@ -7,8 +7,7 @@ $player = new PlayerController();
 // $params = $User->LoginUp();
 $params = $player->index();
 $player->PlayersTmp();
-
-
+// $User->Permission();
 ?>
 <!DOCTYPE html>
 <html lang="en">

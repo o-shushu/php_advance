@@ -9,37 +9,42 @@ class User extends Db {
         parent::__construct($dbh);
     }
 
-    public function LoginDataCheck() {
-        $email = $_POST['email'];
+    public function LoginDataCheck($postemail) {
         // SELECT p.*,c.name FROM `players` p INNER JOIN countries c ON c.id= p.country_id;
         $sql = 'SELECT * FROM '.$this->table. ' u';
         $sql .= ' WHERE email = :email';
         $stmt = $this->dbh->prepare($sql);//プリペアドステートメントのSQL
-        $stmt -> bindValue(':email', $email);
+        $stmt -> bindValue(':email', $postemail);
         $stmt->execute();//execute関数を使うことによりデータベースからデータを取得することができました。
-        $loginuser = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(password_verify($_POST['password'], $loginuser[0]['password'])) {
-            $_SESSION['id'] = $loginuser['id'];
-            $_SESSION['country_id'] = $loginuser['country_id'];
-            header('Location:index.php');
-        } else {
-            $msg = 'メールアドレスもしくはパスワードが間違っています。';
-        }
-        echo $msg;
+        $loginuser = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $loginuser;
     }
 
-    public function RegisterInsert() {
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users(email, password) VALUES (:email, :password)";
+    public function RegisterInsert($addemail,$addcountry_name,$addpassword) {
+        // $sql = "INSERT INTO users(email, password,country_id)";
+        // $sql .= ' VALUES (:email, :password, SELECT )';
+        $sql = "INSERT INTO users
+            SET email      = :email,
+                password   = :password,
+                role       = 1,
+                country_id = (
+                                 SELECT c.id
+                                 FROM countries c
+                                 WHERE c.name = :country_name
+                               )";
         $stmt = $this->dbh->prepare($sql);
-        $stmt->bindValue(':email',  $email);
-        $stmt->bindValue(':password', $password);
+        $stmt->bindValue(':email',  $addemail, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $addpassword, PDO::PARAM_STR);
+        $stmt->bindValue(':country_name', $addcountry_name, PDO::PARAM_STR);
         $stmt->execute();
-        $msg = '新規登録が完了しました';
-        $link = '<a href="login.php">ログインページ</a>';
-        echo $msg;
-        echo $link;
-
+        return $stmt;            
     }
+    // public function PermissionAdd() {
+    //     $sql = 'GRANT ALL PRIVILEGES ON wordcup2014.* TO 0@localhost';
+    //     $sql .= ' IDENTIFIED BY "password"';
+    //     $stmt = $this->dbh->prepare($sql);
+    //     $stmt->execute();
+    //     echo "パーミッション";
+
+    // }
 }

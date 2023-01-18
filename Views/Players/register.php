@@ -5,6 +5,7 @@ $User = new UsersController();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //エスケープ処理
     $params = $User->Register();
+    var_dump($params);//echoを使ったら、キーを入れます。また、F7でカタカナに交換できる。
 }
 ?>
 
@@ -23,13 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div>
         <label>
             メールアドレス：
-        <input type="text" name="email" required>
+            <input type="text" name="email" required>
         </label>
     </div>
     <div>
         <label>
-        パスワード：
-        <input type="password" name="password" required>
+            パスワード：
+            <input type="password" name="password" required>
+        </label>
+    </div>
+    <div>
+        <label>
+            国籍：
+            <input type="text" name="country_name" required>
         </label>
     </div>
     <input type="submit" value="新規登録">

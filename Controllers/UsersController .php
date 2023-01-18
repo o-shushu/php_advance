@@ -25,14 +25,43 @@ class UsersController {
     }
 
     public function LoginUp() {
-        $UserLogin = $this->User->LoginDataCheck($this->request['post']);
-        return $UserLogin;
+        $postemail = $this->request['post']['email'];
+        $postpassword = $this->request['post']['password'];
+        if(!isset($postemail) || $postemail ==""){
+            $error['email'] ="メールアドレスが間違っています。";
+        }
+        if(!isset($postpassword) || $postpassword ==""){
+            $error['password'] ="パスワードが間違っています。";
+        }
+
+        if(!empty($error)){
+            return $error;
+        }
+
+        $UserLogin = $this->User->LoginDataCheck($postemail); //$UserLoginと$loginuserは取った結果が同じです。
+        if(password_verify($postpassword, $UserLogin['password'])) {
+            header('Location:index.php');
+            exit();
+        } else {
+            return $error['false'] ='メールアドレスもしくはパスワードが間違っています。';
+        }
     }
+
     public function Register() {
-        $UserAdd = $this->User->RegisterInsert();
-        return $UserAdd;
+        $addemail = $this->request['post']['email'];
+        $addcountry_name = $this->request['post']['country_name'];
+        $addpassword = password_hash($this->request['post']['password'], PASSWORD_DEFAULT);
+        $UserAdd = $this->User->RegisterInsert($addemail,$addcountry_name,$addpassword);
+        if(isset($UserAdd)) {
+             
+        // $result = $stmt->rowCount();
+        $result['RegisterEnd']= '新規登録が完了しました</br>
+                <a href="login.php">ログインページ</a>';
+        return $result;
+        }
     }
-    // public function Eorror() {
-        
+    // public function Permission() {
+    //     $PermissionAdd = $this->User->PermissionAdd();
+    //     return $PermissionAdd;
     // }
 }

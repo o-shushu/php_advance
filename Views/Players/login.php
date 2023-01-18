@@ -6,6 +6,7 @@ $User = new UsersController();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //エスケープ処理
     $params = $User->LoginUp();
+    var_dump($params );
 }
 ?>
 <!DOCTYPE html>
@@ -23,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div>
         <label>
             メールアドレス：
-        <input type="text" name="email" required>
+        <input type="text" name="email" >
         </label>
     </div>
     <div>
         <label>
         パスワード：
-        <input type="password" name="password" required>
+        <input type="password" name="password" >
         </label>
     </div>
     <input type="submit" value="ログイン">

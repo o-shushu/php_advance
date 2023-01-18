@@ -4,5 +4,5 @@
     if(mb_substr($parse['path'],-1) === '/') {
         $parse['path'] .= $_SERVER["SCRIPT_NAME"];
     }
-    require_once(ROOT_PATH.'mvc_php/Views'.$parse['path']);
+    require_once(ROOT_PATH.'mvc_php/Views'.$parse['path']); // Players/register.php
 ?>
