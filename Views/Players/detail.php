@@ -5,6 +5,8 @@ $Player = new PlayerController();
 $params = $Player->view();
 $player = $params['player'];
 $pairings = $params['pairings'];
+session_start();
+var_dump($_SESSION['role']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +63,7 @@ $pairings = $params['pairings'];
             <td><?=$player['country_name'] ?></td>
         </tr>
         <tr>
+        <?php if($_SESSION['role'] == 0):?>
         <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>"
                onclick="return confirm('編集を実行しますか？')">編集</a></td>
             <td><a href="">削除</a></td>
@@ -83,6 +86,7 @@ $pairings = $params['pairings'];
         </tr>
         <?php endforeach; ?>
     </table>
+    <?php endif?>
     <p><a href="index.php">トップへ戻る</a></p>
 </body>
 </html>

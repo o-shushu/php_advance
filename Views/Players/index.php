@@ -3,11 +3,20 @@ require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
 require_once(ROOT_PATH .'mvc_php\Controllers\UsersController .php');
 
 $player = new PlayerController();
-// $User = new UsersController();
-// $params = $User->LoginUp();
-$params = $player->index();
+$User = new UsersController();
+session_start();
+var_dump($_SESSION['role']);
+echo "######";
+if($_SESSION['role'] == 1){
+    $params = $User->AllUsers();
+    var_dump($params);
+}else{
+    $params = $player->index();
+}
 $player->PlayersTmp();
-// $User->Permission();
+// $loginuser = $User->SortUser();
+// var_dump($loginuser);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +45,10 @@ $player->PlayersTmp();
             <th></th>
 
         </tr>
-        <?php foreach($params['players'] as $player): 
+        <?php foreach($params['players'] as $player):
             //if($player['del_flg']==1): continue;//方法1:選手一覧に0なら表示、1なら非表示
-            //endif; ?>
+            //endif;
+            ?>
 
         <tr>
             <td><?=$player['id'] ?></td>
@@ -52,10 +62,11 @@ $player->PlayersTmp();
             <td><?=$player['country_name'] ?></td>
             <td><?=$player['del_flg'] ?></td>
             <td><a href="detail.php?id=<?=$player['id'] ?>">詳細</a></td>
-            <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>"
-               onclick="return confirm('編集を実行しますか？')">編集</a></td>
-            <td><button class="delete" id="<?=$player['id'] ?>">削除</button></td>
-            
+            <?php if($_SESSION['role'] == 0):?>
+                <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>"
+                onclick="return confirm('編集を実行しますか？')">編集</a></td>
+                <td><button class="delete" id="<?=$player['id'] ?>">削除</button></td>
+            <?php endif; ?>
         </tr>
         <?php endforeach; ?>
     </table>

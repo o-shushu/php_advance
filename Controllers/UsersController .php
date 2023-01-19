@@ -40,13 +40,32 @@ class UsersController {
 
         $UserLogin = $this->User->LoginDataCheck($postemail); //$UserLoginと$loginuserは取った結果が同じです。
         if(password_verify($postpassword, $UserLogin['password'])) {
-            header('Location:index.php');
-            exit();
+                session_start();
+                $_SESSION['country_id'] = $UserLogin['country_id'];
+                $_SESSION['role'] = $UserLogin['role'];//$this->User->AllUsers($commonusers);
+                header('Location:index.php');
+                exit();
         } else {
             return $error['false'] ='メールアドレスもしくはパスワードが間違っています。';
         }
     }
+    // public function SortUser() {
+    //     $postemail = $this->request['post']['email'];
+    //     $postpassword = $this->request['post']['password'];
+    //     if(!isset($postemail) || $postemail ==""){
+    //         $error['email'] ="メールアドレスが間違っています。";
+    //     }
+    //     if(!isset($postpassword) || $postpassword ==""){
+    //         $error['password'] ="パスワードが間違っています。";
+    //     }
 
+    //     if(!empty($error)){
+    //         return $error;
+    //     }
+
+    //     $UserLogin = $this->User->LoginDataCheck($postemail);
+    //     return $UserLogin;
+    // }
     public function Register() {
         $addemail = $this->request['post']['email'];
         $addcountry_name = $this->request['post']['country_name'];
@@ -60,8 +79,14 @@ class UsersController {
         return $result;
         }
     }
-    // public function Permission() {
-    //     $PermissionAdd = $this->User->PermissionAdd();
-    //     return $PermissionAdd;
-    // }
+    public function AllUsers() {
+        
+        $commonuser_id = $_SESSION['country_id'];
+        $players = $this->User->CommonUser($commonuser_id);
+        $params = [
+            'players' => $players 
+        ];
+        return $params;
+    }
+ 
 }

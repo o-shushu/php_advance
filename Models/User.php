@@ -39,12 +39,15 @@ class User extends Db {
         $stmt->execute();
         return $stmt;            
     }
-    // public function PermissionAdd() {
-    //     $sql = 'GRANT ALL PRIVILEGES ON wordcup2014.* TO 0@localhost';
-    //     $sql .= ' IDENTIFIED BY "password"';
-    //     $stmt = $this->dbh->prepare($sql);
-    //     $stmt->execute();
-    //     echo "パーミッション";
-
-    // }
+    public function CommonUser($commonuser_id) {
+        // $commonuser_id = $_SESSION['country_id'];
+        // var_dump($_SESSION['country_id']);
+        $sql = 'SELECT p.*,c.name AS country_name FROM players p';
+        $sql .= ' LEFT JOIN countries c ON c.id= p.country_id';
+        $sql .= ' WHERE country_id = :country_id AND p.del_flg = 0';
+        $stmt = $this->dbh->prepare($sql);//プリペアドステートメントのSQL
+        $stmt -> bindValue(':country_id', $commonuser_id);
+        $stmt->execute();
+        return $stmt; 
+    }
 }
