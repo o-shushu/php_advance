@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\UsersController .php');
+require_once(ROOT_PATH .'mvc_php\Controllers\UsersController.php');
 
 $User = new UsersController();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -10,7 +10,6 @@ class User extends Db {
     }
 
     public function LoginDataCheck($postemail) {
-        // SELECT p.*,c.name FROM `players` p INNER JOIN countries c ON c.id= p.country_id;
         $sql = 'SELECT * FROM '.$this->table. ' u';
         $sql .= ' WHERE email = :email';
         $stmt = $this->dbh->prepare($sql);//プリペアドステートメントのSQL
@@ -21,8 +20,6 @@ class User extends Db {
     }
 
     public function RegisterInsert($addemail,$addcountry_name,$addpassword) {
-        // $sql = "INSERT INTO users(email, password,country_id)";
-        // $sql .= ' VALUES (:email, :password, SELECT )';
         $sql = "INSERT INTO users
             SET email      = :email,
                 password   = :password,
@@ -40,8 +37,6 @@ class User extends Db {
         return $stmt;            
     }
     public function CommonUser($commonuser_id) {
-        // $commonuser_id = $_SESSION['country_id'];
-        // var_dump($_SESSION['country_id']);
         $sql = 'SELECT p.*,c.name AS country_name FROM players p';
         $sql .= ' LEFT JOIN countries c ON c.id= p.country_id';
         $sql .= ' WHERE country_id = :country_id AND p.del_flg = 0';

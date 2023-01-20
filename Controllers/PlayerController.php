@@ -2,15 +2,14 @@
 require_once(ROOT_PATH .'mvc_php\Models\Player.php');
 require_once(ROOT_PATH .'mvc_php\Models\Goal.php');
 require_once(ROOT_PATH .'mvc_php\Models\Pairing.php');
-// require_once(ROOT_PATH .'mvc_php\Models\Countries.php');
+require_once(ROOT_PATH .'mvc_php\Models\Countries.php');
 
 
 class PlayerController {
     private $request;
     private $Player;
-    private $Goal;
     private $Pairing;
-    // private $Countries;
+    private $Country;
 
     public function __construct() 
     {
@@ -23,7 +22,7 @@ class PlayerController {
         //別モデルと連携
         $dbh = $this->Player->get_db_handler();
         $this->Pairing = new Pairing($dbh);
-        // $this->Countries = new Countries($dbh);
+        $this->Country = new Countries($dbh);
     }
 
     public function index() {
@@ -31,49 +30,30 @@ class PlayerController {
         if(isset($this->request['get']['page'])) {
             $page = $this->request['get']['page'];
         }
-        if(isset($this->request['get']['act']) && $this->request['get']['act'] === 'del'){
-            $id = $this->request['get']['id'];
+        if((isset($_SESSION['role']) && $_SESSION['role'] == 0) && isset($this->request['post']['act']) && $this->request['post']['act'] === 'del'){
+            $id = $this->request['post']['id'];
             $this->Player->delFlg($id);
         }
         if(isset($this->request['get']['act']) && $this->request['get']['act'] === 'edit'){
             $id = $this->request['get']['id'];
             $editplayer_infmation = $this->Player->findById($id);
-            $optioncountryid = $this->Player->findAllCountryId();
+            $optioncountryid = $this->Country->findAllCountryId();
         }
         $players = $this->Player->findAll($page);
         $players_count = $this->Player->countAll();
+        $players_position = $this->Player->Position();
         // $normalPlayers = array_filter($players, function($k) {//方法3:選手一覧に0なら表示、1なら非表示
         //     if($k['del_flg'] == 0){
         //         return $k;
         //     }
         // }, ARRAY_FILTER_USE_KEY);
-        session_start();
-echo "1212121";
-echo $_SESSION['country_id'];
-echo "tttttt";
         $params = [
             'players' => $players,
             'pages' => $players_count/20,
             'editplayer' => $editplayer_infmation,
-            'editcountryid' => $optioncountryid    
+            'editcountryid' => $optioncountryid ,
+            'sortposition' => $players_position  
         ];
-        // $_GET['players'] = $this->Player->findAll($page);
-        // //var_dump( $_GET['players'] );
-        // $players_count = $this->Player->countAll();
-        // $options = array('del_flg' => 0);
-        // var_dump( $options );
-        // $normalPlayers = filter_input( INPUT_GET, 'players', FILTER_CALLBACK, $options);
-        
-        // $normalPlayers = [];
-        // var_dump( $normalPlayers );
-        // $params = [
-        //     'players' => $normalPlayers,
-        //     'pages' => $players_count/20
-        // ];
-        // echo "123";
-        
-        // var_dump($editplayer_infmation);
-        // echo "123</br>";
         return $params;
     }
 
@@ -91,23 +71,7 @@ echo "tttttt";
         ];
         return $params;
     }
-    // public function keepedit() {
-    //     // if(empty($this->request['get']['id'])) {
-    //     //     echo '指定のパラメータが不正です。このページを表示できません。';
-    //     //     exit;
-    //     // }
-    //     // $pairings = $this->Pairing->getGoalsByPlaeyrId($this->request['get']['id']);// debug デバッグ
-    //     // $editplayer_infmation = $this->Player->updatePlayer($this->request['get']['id']);
-    //     $this->Player->updatePlayer($this->request['post']);
-    //     $id = $this->request['post']['id'];
-    //     $editplayer_infmation = $this->Player->findById($id);
-    //     $params = [
-    //         'editplayer' => $editplayer_infmation
-    //     ];
-    //     return $params;
-    // }
-
-    public function PlayersTmp() { //1 interger not array
+    public function PlayersTmp() { //1 is interger not array
         $AllDataDelete = $this->Player->PlayersTmpDelete();
         $AllDataUpdate = $this->Player->PlayersTmpUpdate();
         $params = [
@@ -129,8 +93,7 @@ echo "tttttt";
           $birth = test_input($_POST['birth']);
           $height = test_input($_POST['height']);
           $weight = test_input($_POST['weight']);  
-            $errors = [];
-       echo $_POST["name"];
+          $errors = [];
            //入力値にデータをチェックする関数の定義です。
           if(preg_match("/^[0-9]+$/", $uniform_num) == 0) {   
             $errors['uniform_num'] = '背番号は0-9の数字のみでご入力ください。';
@@ -160,8 +123,6 @@ echo "tttttt";
           };
           echo $errors['uniform_num'];
           if (count($errors) > 0) {
-            // $_SESSION["uniform_num"] = $errors['uniform_num'];
-            // $params['editplayer']['uniform_num'] = $_POST["uniform_num"];
             $params = [
                 'editplayer'=> $_POST,
                 'error'=> $errors

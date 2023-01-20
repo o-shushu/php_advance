@@ -1,22 +1,27 @@
 <?php
 require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
-require_once(ROOT_PATH .'mvc_php\Controllers\UsersController .php');
+require_once(ROOT_PATH .'mvc_php\Controllers\UsersController.php');
 
 $player = new PlayerController();
 $User = new UsersController();
 session_start();
-var_dump($_SESSION['role']);
-echo "######";
+$login = false;
+$username = "";
+// var_dump($_SESSION['role']);
+if(isset($_SESSION['role']) && ($_SESSION['role'] == 1 || $_SESSION['role'] == 0)){
+    $login = true;
+    // var_dump($login);
+    // var_dump(isset($_SESSION['role']));
+}
 if($_SESSION['role'] == 1){
     $params = $User->AllUsers();
-    var_dump($params);
+    $username = "ようこそ一般ユーザー";
+    // var_dump($params);
 }else{
     $params = $player->index();
+    $username = "ようこそ管理ユーザー";
 }
 $player->PlayersTmp();
-// $loginuser = $User->SortUser();
-// var_dump($loginuser);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +33,8 @@ $player->PlayersTmp();
     <title>Document</title>
 </head>
 <body>
+    <?php if($login):?>
+    <p><?php echo $username;?></p>
     <h2>選手一覧</h2>
     <h3><a href="logout.php">ログアウト</a></h3>
     <table>
@@ -49,7 +56,6 @@ $player->PlayersTmp();
             //if($player['del_flg']==1): continue;//方法1:選手一覧に0なら表示、1なら非表示
             //endif;
             ?>
-
         <tr>
             <td><?=$player['id'] ?></td>
             <td><?=$player['uniform_num'] ?></td>
@@ -70,7 +76,6 @@ $player->PlayersTmp();
         </tr>
         <?php endforeach; ?>
     </table>
-
     <div class="paging">
     <?php
     for($i=0;$i<=$params['pages'];$i++) {
@@ -82,39 +87,29 @@ $player->PlayersTmp();
     }
     ?>
     </div>
+    <script type="text/javascript">
+    $('.delete').click(function(){
+        if(!confirm("削除を実行しますか？")) {
+        return false;
+        } else {
+            id = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: "index.php",
+                data: { "id" : id ,act : "del"}
+            }).done(function(data){
+               location.reload();
+            }).fail(function(XMLHttpRequest, status, e){
+                alert(e);
+            });
+        }
+        }
+    );
 
-<!-- <script>
-    function test(){
-        $.ajax({url:"index.php", success:function(result){
-        $("div").text(result);}
-    })
-    } 
-</script> -->
-
-<script type="text/javascript">
-  $('.delete').click(function(){
-
-    if(!confirm("削除を実行しますか？")) {
-      return false;
-    } else {
-     
-        id = $(this).attr('id');
-        window.location.href = "index.php?act=del&id="+id;
-        return $flag = 1;
-    }
-    // jQuery.ajax({
-    // id = $(this).attr('id');
-    // type: 'post',
-    // url: "detail.php?id="+id, //送信先PHPファイル
-    // data: {'func' : 'get_txt_content', 'argument': file_name }, //POSTするデータ
-    // success: function(content){ //正常に処理が完了した時
-        
-    //     element.innerHTML = "<p>" + content + "</p>";
-        
-    }
- 
-);
-
-</script>
+    </script>
+    <?php else:?>
+    <p>また、ログインできません</p>
+    <h3><a href="login.php">ログイン</a></h3>
+    <?php endif?>
 </body>
 </html>

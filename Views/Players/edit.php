@@ -3,15 +3,21 @@ require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
 
 $player = new PlayerController();
 $params = $player->index();
+$optioncountry = $params['editcountryid'];
+$optionposition = $params['sortposition'];
+session_start();
+$login = false;
+// var_dump($_SESSION['role']);
+if(isset($_SESSION['role']) && $_SESSION['role'] == 0){
+    $login = true;
+    // var_dump($login);
+    // var_dump(isset($_SESSION['role']));
+}
   //最初没有值，提交表单后才会执行检验
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $params = $player->EditDataCheck();
 }
-$optioncountry = $params['editcountryid'];
-foreach($optioncountry as $optioncountry_key => $optioncountry_val){
-    $optioncountry .= "<option value='". $optioncountry_val['name'];
-    $optioncountry .= "'>". $optioncountry_val['name']. "</option>";
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +28,7 @@ foreach($optioncountry as $optioncountry_key => $optioncountry_val){
     <title>Edit Homepage</title>
 </head>
 <body>
+<?php if($login):?>
 <h2>選手一覧</h2>
     <form action=" " method="post" class="information-input">
         <dl>
@@ -35,11 +42,13 @@ foreach($optioncountry as $optioncountry_key => $optioncountry_val){
         </dl>
             <dt>ポジション</dt>
             <select name='position'>
-            <option value=<?=$params['editplayer']['position'] ?>><?=$params['editplayer']['position'] ?></option>
-            <option value='GK'>GK</option>
-            <option value='DF'>DF</option>
-            <option value='MF'>MF</option>
-            <option value='FW'>FW</option>
+                <?php foreach($optionposition as $position_key => $position_val ): ?>
+                    <?php if($position_val["position"] == $params['editplayer']['position']): ?>
+                        <option value=<?=$position_val["position"]?> selected><?=$position_val["position"]?></option>
+                    <?php else: ?>
+                        <option value=<?=$position_val["position"]?>><?=$position_val["position"]?></option>
+                    <?php endif?>
+                <?php endforeach?>
             </select>
      
         </dl>
@@ -71,12 +80,20 @@ foreach($optioncountry as $optioncountry_key => $optioncountry_val){
         <dl>
             <dt>国籍</dt>
             <select name="country_name">
-                <option value=<?=$params['editplayer']['country_name'] ?>><?=$params['editplayer']['country_name'] ?></option>
-                <?php // ③optionタグを出力
-                echo $optioncountry; ?>
+                <?php 
+                    foreach($optioncountry as $optioncountry_val): ?>
+                        <?php if($optioncountry_val['name'] === $params['editplayer']['country_name']): ?>
+                                <option value=<?=$optioncountry_val['id'] ?> selected><?=$optioncountry_val['name']?></option>
+                            <?php else:?>
+                                <option value=<?=$optioncountry_val['id']?>><?=$optioncountry_val['name']?></option>
+                        <?php endif;?>
+                <?php endforeach;?>
             </select>
         </dl>
         <input type='submit' value='送信' />
     </form>
+    <?php else:?>
+    <p>あなたはアクセス権限がない。</p>
+    <?php endif?>
 </body>
 </html>

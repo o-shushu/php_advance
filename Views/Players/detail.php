@@ -2,11 +2,14 @@
 require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
 
 $Player = new PlayerController();
+
 $params = $Player->view();
+
 $player = $params['player'];
 $pairings = $params['pairings'];
+
 session_start();
-var_dump($_SESSION['role']);
+// var_dump($_SESSION['role']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
