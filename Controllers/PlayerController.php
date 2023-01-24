@@ -1,8 +1,8 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Models\Player.php');
-require_once(ROOT_PATH .'mvc_php\Models\Goal.php');
-require_once(ROOT_PATH .'mvc_php\Models\Pairing.php');
-require_once(ROOT_PATH .'mvc_php\Models\Countries.php');
+require_once(ROOT_PATH .'\Models\Player.php');
+require_once(ROOT_PATH .'\Models\Goal.php');
+require_once(ROOT_PATH .'\Models\Pairing.php');
+require_once(ROOT_PATH .'\Models\Countries.php');
 
 
 class PlayerController {
@@ -47,6 +47,7 @@ class PlayerController {
         //         return $k;
         //     }
         // }, ARRAY_FILTER_USE_KEY);
+        
         $params = [
             'players' => $players,
             'pages' => $players_count/20,
@@ -136,7 +137,8 @@ class PlayerController {
             $params = [
                 'editplayer' => $editplayer_infmation
             ];
-            header('Location:index.php');
+            return $params;
+            // header('Location:index.php');
           }
     }
    

@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
+require_once(ROOT_PATH .'\Controllers\PlayerController.php');
 
 $player = new PlayerController();
 $params = $player->index();
@@ -15,9 +15,10 @@ if(isset($_SESSION['role']) && $_SESSION['role'] == 0){
 }
   //最初没有值，提交表单后才会执行检验
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $params = $player->EditDataCheck();
+    $params = $player->EditDataCheck();   
+    $editplayer_end = '編集は終わりました。';
+   
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +30,7 @@ if(isset($_SESSION['role']) && $_SESSION['role'] == 0){
 </head>
 <body>
 <?php if($login):?>
+<p><?php echo $editplayer_end;?></p>
 <h2>選手一覧</h2>
     <form action=" " method="post" class="information-input">
         <dl>
@@ -79,7 +81,7 @@ if(isset($_SESSION['role']) && $_SESSION['role'] == 0){
         </dl>
         <dl>
             <dt>国籍</dt>
-            <select name="country_name">
+            <select name="country_id">
                 <?php 
                     foreach($optioncountry as $optioncountry_val): ?>
                         <?php if($optioncountry_val['name'] === $params['editplayer']['country_name']): ?>
@@ -90,7 +92,8 @@ if(isset($_SESSION['role']) && $_SESSION['role'] == 0){
                 <?php endforeach;?>
             </select>
         </dl>
-        <input type='submit' value='送信' />
+        <input type='submit' value='送信'  onclick="return confirm('編集を実行しますか？')"/>
+        <p><a href="index.php">戻る</a></p>
     </form>
     <?php else:?>
     <p>あなたはアクセス権限がない。</p>

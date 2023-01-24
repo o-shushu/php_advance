@@ -1,0 +1,29 @@
+.data_table, th, td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+}
+.data_table th {
+    background-color: aquamarine;
+
+}
+.data_table {
+    width: 50%;
+    margin: 0px auto;
+}
+.data_table .edit, .delete{
+    border: 1px solid black;
+    text-decoration: none;
+    background: lightgray;
+    margin: -11px;
+    width: 36px;
+    height: 26px;
+    border-radius: 0;
+    font-size: 0.8rem;
+    color: black;
+}
+.delete{
+    width: 28px;
+    height: 22px;
+}

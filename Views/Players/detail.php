@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
+require_once(ROOT_PATH .'\Controllers\PlayerController.php');
 
 $Player = new PlayerController();
 
@@ -67,8 +67,7 @@ session_start();
         </tr>
         <tr>
         <?php if($_SESSION['role'] == 0):?>
-        <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>"
-               onclick="return confirm('編集を実行しますか？')">編集</a></td>
+        <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>">編集</a></td>
             <td><a href="">削除</a></td>
         </tr>
     </table>

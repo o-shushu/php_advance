@@ -1,0 +1,462 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    margin: 0;
+    padding: 0;
+	background-color: white;
+}
+.importent {
+    height: 5%;
+    width: 100%;
+    background-color: black;
+    text-align: center;
+	padding: 15px 0px;
+}
+.importent a {
+    color: white;
+}
+.menu {
+	position: absolute;
+    width: 100%;
+}
+.container,.container1 {
+	display: flex;
+    justify-content: space-around;
+    height: 70px;
+    margin: 0px auto;
+	width: 100%;
+    padding-top: 10px;
+    text-align: center;
+	transition: all .5s ease;
+	z-index: 10;/*positionと一緒に使う*/
+	/* background-color: none; */
+}
+.menul ul {
+	display: flex;
+    list-style-type: none;
+    left: 0px;
+    padding: 0px;
+    justify-content: space-between;
+    width: 25vw;
+}
+.menu-right {
+	width: 170px;
+}
+.menu-logo {
+	padding-top: 20px;
+}
+.menul {
+	padding-top: 20px;	
+}
+.menul ul li a {
+	color: white;
+	text-decoration: none;
+}
+.menu-right {
+	padding-top: 20px;
+	color: white;
+}
+.menu-right img {
+	position: relative;
+    top: -40px;
+    width: 55px;
+	display: none;
+	margin-top: 20px;
+}
+.signbtn {
+	cursor: pointer;
+}
+.menu p {
+	color: white;
+    font-weight: bold;
+    font-size: 50px;
+	width: 90%;
+    margin: auto;
+    position: absolute;
+    top: 220px;
+    left: 5%;
+	z-index: 2;
+    /* line-height: 64px;注意 */
+}
+.side-menu {
+	background-color: white;
+    width: 155px;
+    height: 170px;
+    border-radius: 10px;
+    position: relative;
+    top: -95%;
+    right: 28%;
+    z-index: 20;
+	display: none;
+}
+.side-menu ul {
+    list-style-type: none;
+    text-align: left;
+}
+.side-menu ul .sign {
+    color: black;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #ccc;
+}
+.side-menu ul li {
+    padding: 0 1rem;
+    margin: 15px 0px;
+}
+.side-menu ul li a {
+    color: black;
+    text-decoration: none;
+}
+.main-picture img {
+	width: 100%;
+    height: 100vh;
+	object-fit: cover;
+	opacity: 0.8;
+}
+.content1 {
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.content1 img {
+    width: 100px;
+    height: 100px;
+	border-radius: 10px;
+}
+.picture1 {
+	display: flex;
+    margin: 15px 10px;
+}
+.picture1 img {
+	border-radius: 10px;
+    object-fit: cover;
+}
+.pic-moji {
+	padding-left: 15px;
+    font-weight: bold;
+}
+.picture2 img {
+	width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+.column2-1 {
+	display: flex;
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 15px;
+}
+.picture2 {
+	margin-right: 25px;
+	padding: 15px 0;
+}
+.picture2 img {
+	width: 110%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.column3-1 {
+	position: relative;
+}
+.column3-1 img {
+	width: 100%;
+	border-radius: 15px;
+}
+.mojibackground {
+	position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 60%;
+    height: 150px;
+	background-color: rgba(255,255,255,0.3);
+}
+.pic3-moji {
+	position: absolute;
+    top: 0px;
+}
+.pic3-moji h2 {
+	color: black;
+	font-size: 40px;
+	font-weight: bold;
+}
+.column4-2, .column5-1 {
+	display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
+}
+.serve {
+	display: flex;
+}
+.picture4 img {
+	width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.content4 {
+	background-color: black;
+	margin: 40px 0px;
+}
+.content4 .column4-1 {
+	padding: 30px 0;
+}
+.content4 h2, .content4 h3, .content4 p {
+	color: white;
+}
+.picture5 {
+	padding: 10px 0;
+}
+.picture5 img {
+	width: 100%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.serve {
+	justify-content: space-between;
+}
+.serve ul {
+	list-style-type: none;
+}
+.serve li {
+	margin: 10px 0px;
+}
+.serve li a {
+	color: black;
+	text-decoration: none;
+}
+.footer {
+	border-top: 1px solid #ddd;
+    background-color: #f7f7f7;
+    padding: 4% 0;
+}
+.standard {
+	margin: 40px 0;
+    padding: 0 5%;
+}
+.footer-standard {
+	width: 90%;
+    margin: auto;
+    font-size: 0.9rem;
+}
+.log_in {
+    width: 40%;
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+	/* display: none; */
+	left: 30%;
+    top: 200px;
+    z-index: 20;
+	position: fixed;
+}
+.transformed-state {	
+    top: 70px;
+	transition-property: top;
+	transition-timing-function: ease-in-out;
+	transition-duration:  1s;
+}
+
+.log_in h3 {
+	text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+.optbtn, .iptdata {
+	padding: 20px;
+}
+.option {
+	background-color: white;
+    border: 2px solid #ccc;
+	margin-bottom: 10px;
+}
+.option img {
+	width: 8%;
+    height: auto;
+}
+.hidebackground {
+	height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 15;
+    top: 0;
+	background-color: rgba(0,0,0,0.4);
+	display: none;
+}
+.jump {
+	position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    width: 8rem;
+    text-align: center;
+    padding: 5px;
+    z-index: 10;
+    display: none;
+    line-height: 3rem;
+    cursor: pointer;
+	display: none;
+}
+.jump p {
+	color: white;
+}
+@media screen and (max-width: 896px) {
+    .content1 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.menul {
+		opacity: 0;
+	}
+	.menu-right h4 {
+		display: none;
+	}
+	.menu-right img {
+		display: initial;
+	}
+	.column2-1 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.log_in {
+		width: 70%;
+    	left: 15%;
+	}
+
+}
+@media screen and (max-width: 700px) {
+	.serve {
+		display: block;
+	}
+	.serve1 h2 {
+		border-bottom: 1px solid #ccc;
+	}
+	.mojibackground {
+		position: initial;
+    	height: 20vh;
+	} 
+	.column3-1 {
+		display: flex;
+    	flex-direction: column-reverse;
+	}
+}
+
+/* contact.html */
+/* headerの設定 */
+.con-menu {
+    width: 100%;
+	background-color: black;
+	position: inherit;
+}
+.box, .tact-message,.complete {
+	border: #ddd solid 2px;
+    margin: 30px auto;
+    width: 55%;
+    border-radius: 15px;
+	word-break: break-all;
+}
+.box h2, .tact-message h2, .complete h2 {
+	margin: 10px;
+    text-align: center;
+}
+.information-input, .complete_moji {
+	padding: 15px;
+}
+.information-input h3 {
+	border-top: black solid 1px;
+    border-bottom: black solid 1px;
+    background-color: lightgray;
+	font-weight: 100;
+	padding: 5px;
+}
+.required {
+	color: red;
+}
+input[type=text], textarea, .password {
+    width: 100%;
+    padding: 10px 0px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+input[type=text]:focus {
+	border: 3px solid #555;
+}
+#body {
+	width: 100%;
+    height: 20vh;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+/* textarea:focus {
+    outline: none;
+} */
+textarea {
+	overflow: scroll;
+}
+button {
+	width: 100%;
+    height: 7vh;
+    background-color: deeppink;
+    color: white;
+    border: none;
+    border-radius: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
+/* confirm.html */
+.confirm_btn {
+	text-align: center;
+}
+.confirm dt {
+	width: 100%;
+    padding-top: 15px;
+    margin: 5px 0;
+	font-size: 20px;
+	border-bottom: gray solid 1px;
+}
+.confirm dd {
+	padding: 0px 5px;
+    font-size: 25px;
+}
+.return {
+	background-color: white;
+	border: green solid 2px;
+	margin-left: 1%;
+}
+.return {
+    color: green;
+	text-decoration: none;
+	font-size: 20px;
+}
+#button_cfm, .return {
+	width: 48%;
+}
+/* エラーメッセージのスタイル */
+p.error{
+    margin:0;
+    color:red;
+    font-weight:bold;
+    margin-bottom:1em;
+}
+@media screen and (max-width: 500px) {	
+	.container {
+	justify-content: space-between;
+	
+	}
+	.content1 {
+		display: block;
+	}
+
+	.menul {
+		display: none;
+	}
+	.column4-2, .column5-1 {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.box {
+		width: 80%;
+	}
+
+}

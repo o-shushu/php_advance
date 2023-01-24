@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\UsersController.php');
+require_once(ROOT_PATH .'\Controllers\UsersController.php');
 
 $User = new UsersController();
 session_start();

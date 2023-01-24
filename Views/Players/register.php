@@ -1,9 +1,8 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\UsersController.php');
+require_once(ROOT_PATH .'\Controllers\UsersController.php');
 
 $User = new UsersController();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //エスケープ処理
     $params = $User->Register();
     echo $params['RegisterEnd'];//echoを使ったら、キーを入れます。また、F7でカタカナに交換できる。
 }

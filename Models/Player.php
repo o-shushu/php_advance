@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php/Models/Db.php');
+require_once(ROOT_PATH .'/Models/Db.php');
 
 class Player extends Db {
     private $table = 'players';
@@ -39,7 +39,7 @@ class Player extends Db {
         $sth = $this->dbh->prepare($sql);
         $sth->bindParam(':id', $id, PDO::PARAM_INT);
         $sth->execute();
-        $result = $sth->fetch(PDO::FETCH_ASSOC);        
+        $result = $sth->fetch(PDO::FETCH_ASSOC);      
         return $result;//returnすれば、後ろのことを実行しない
     }
 
@@ -86,11 +86,7 @@ class Player extends Db {
                 p.birth       = :birth,
                 p.height      = :height,
                 p.weight      = :weight,
-                p.country_id  = (
-                                 SELECT c.id
-                                 FROM countries c
-                                 WHERE c.name = :country_name
-                               )
+                p.country_id  = :country_id
             WHERE p.id = :id";
 
     $sth = $this->dbh->prepare($sql);
@@ -102,7 +98,7 @@ class Player extends Db {
     $sth->bindValue(':birth',        $UpdatedPlayerData['birth'],       PDO::PARAM_STR);
     $sth->bindValue(':height',       $UpdatedPlayerData['height'],      PDO::PARAM_INT);
     $sth->bindValue(':weight',       $UpdatedPlayerData['weight'],      PDO::PARAM_INT);
-    $sth->bindValue(':country_name', $UpdatedPlayerData['country_name'],PDO::PARAM_STR);
+    $sth->bindValue(':country_id',   $UpdatedPlayerData['country_id'],PDO::PARAM_INT);
     $sth->execute();
     }
     public function PlayersTmpDelete() {

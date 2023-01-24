@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Models\User.php');
+require_once(ROOT_PATH .'\Models\User.php');
 
 class UsersController {
     private $request;

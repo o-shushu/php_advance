@@ -1,5 +1,4 @@
 <?php
-// require_once(ROOT_PATH .'mvc_php/Models/Db.php');
 
 class Countries extends Db {
     private $table = 'countries';

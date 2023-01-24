@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php/Models/Db.php');
+require_once(ROOT_PATH .'/Models/Db.php');
 
 class Goal extends Db {
     private $table = 'goals';

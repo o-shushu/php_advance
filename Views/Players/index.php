@@ -1,6 +1,6 @@
 <?php
-require_once(ROOT_PATH .'mvc_php\Controllers\PlayerController.php');
-require_once(ROOT_PATH .'mvc_php\Controllers\UsersController.php');
+require_once(ROOT_PATH .'\Controllers\PlayerController.php');
+require_once(ROOT_PATH .'\Controllers\UsersController.php');
 
 $player = new PlayerController();
 $User = new UsersController();
@@ -69,8 +69,7 @@ $player->PlayersTmp();
             <td><?=$player['del_flg'] ?></td>
             <td><a href="detail.php?id=<?=$player['id'] ?>">詳細</a></td>
             <?php if($_SESSION['role'] == 0):?>
-                <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>"
-                onclick="return confirm('編集を実行しますか？')">編集</a></td>
+                <td><a href="edit.php?act=edit&id=<?=$player['id']; ?>">編集</a></td>
                 <td><button class="delete" id="<?=$player['id'] ?>">削除</button></td>
             <?php endif; ?>
         </tr>

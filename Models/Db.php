@@ -1,5 +1,5 @@
 <?php
-require_once(ROOT_PATH .'mvc_php/database.php');
+require_once(ROOT_PATH .'/database.php');
 
 class Db {
     protected $dbh;
